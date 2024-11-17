@@ -5,7 +5,6 @@ void binarioNaTela(char *);
 void scan_quote_string(char *);
 long converteNome (char*);
 
-
 typedef struct {
     char removido;
     int encadeamento;

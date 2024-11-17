@@ -69,6 +69,10 @@ int main() {
             ex9(proxRRN);
             break;
 
+        case 10:
+            ex10();
+            break;
+
         default:
             printf("\n**********\nOpcao invalida!\n**********\n");
             break;
