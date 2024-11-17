@@ -1,41 +1,39 @@
-# Compilador usado
 CC = gcc
+# CFLAGS = -g -Wall -O0 -std=c99
+CFLAGS = -g -O0 -std=c99 # Flag -Wall removida para funcionar no runcodes
+INCLUDE = $(wildcard include/*.h)
+SOURCES = $(wildcard src/*.c)
+OBJ = $(SOURCES:$(SRC_DIR)/%.c = $(BUILD_DIR)/%.o)
+# INCLUDE_OBJ = $(INCLUDE:src/%.c=src/%.o)
+TARGET = $(BIN_DIR)/executavel
 
-all: ./build/main.o ./build/funcoes_fornecidas.o ./build/ex_total.o ./build/common.o
-	$(CC) ./build/main.o ./build/funcoes_fornecidas.o ./build/ex_total.o ./build/common.o -o ./bin/executavel
+# Diretórios
+SRC_DIR = src
+BIN_DIR = bin
+INC_DIR = include
+BUILD_DIR = build
 
-./build/funcoes_fornecidas.o: ./include/funcoes_fornecidas.h ./include/funcoes_fornecidas.c
-	$(CC) -c ./include/funcoes_fornecidas.c -o ./build/funcoes_fornecidas.o
+# Criar diretórios bin e build
+$(BIN_DIR):
+	mkdir -p $(BIN_DIR)
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
 
-./build/main.o: ./src/main.c ./src/header.h
-	$(CC) -c ./src/main.c -o ./build/main.o
+# Compilar arquivos .c em arquivos .o
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(INC_DIR)/%.h $(INC_DIR)/main.h $(INC_DIR)/funcoes_fornecidas.h
+	$(CC) $(CFLAGS) -c $< -o $@
 
-./build/ex_total.o: ./build/ex1.o ./build/ex2.o ./build/ex3.o ./build/ex4.o ./build/ex5.o ./build/ex6.o
-	$(CC) -r ./build/ex1.o ./build/ex2.o ./build/ex3.o ./build/ex4.o ./build/ex5.o ./build/ex6.o -o ./build/ex_total.o
+all: $(OBJ) $(BUILD_DIR) $(BIN_DIR)
+	$(CC) $(CFLAGS) $(OBJ) -o $(TARGET)
 
-./build/ex1.o: ./src/ex1.c ./src/header.h
-	$(CC) -c ./src/ex1.c -o ./build/ex1.o
+run: $(TARGET)
+	$(TARGET)
 
-./build/ex2.o: ./src/ex2.c ./src/header.h
-	$(CC) -c ./src/ex2.c -o ./build/ex2.o
-
-./build/ex3.o: ./src/ex3.c ./src/header.h
-	$(CC) -c ./src/ex3.c -o ./build/ex3.o
-
-./build/ex4.o: ./src/ex4.c ./src/header.h
-	$(CC) -c ./src/ex4.c -o ./build/ex4.o
-
-./build/ex5.o: ./src/ex5.c ./src/header.h
-	$(CC) -c ./src/ex5.c -o ./build/ex5.o
-
-./build/ex6.o: ./src/ex6.c ./src/header.h
-	$(CC) -c ./src/ex6.c -o ./build/ex6.o
-
-./build/common.o: ./src/common.c ./src/header.h
-	$(CC) -c ./src/common.c -o ./build/common.o
+.PHONY: clean
 
 clean:
-	rm  ./build/* ./bin/*
+	@rm -f $(BUILD_DIR)/*.o ./*.zip $(TARGET) core
 
-run: 
-	./bin/executavel
+zip: 
+	@rm -f *.zip
+	zip -r edIII.zip $(INC_DIR)/* $(SRC_DIR)/* ./Makefile

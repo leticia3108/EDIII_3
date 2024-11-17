@@ -7,7 +7,18 @@
 */
 
 
-#include "header.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <string.h>
+
+#include "../include/main.h"
+#include "../include/funcoes_fornecidas.h"
+#include "../include/common.h"
+#include "../include/ex2.h"
+
+
 
 /* Funções para execução do ex 2 */
 
@@ -47,11 +58,11 @@ void ex2(){
             fread(&dado.velocidade,    sizeof(int),   1, binario_entrada);
 
             pular += 18;          
-            pular += leitura_variavel(dado.nome,    binario_entrada);
-            pular += leitura_variavel(dado.especie, binario_entrada);
-            pular += leitura_variavel(dado.habitat, binario_entrada);
-            pular += leitura_variavel(dado.tipo,    binario_entrada);
-            pular += leitura_variavel(dado.dieta,   binario_entrada);
+            pular += leitura_variavel_02(dado.nome,    binario_entrada);
+            pular += leitura_variavel_02(dado.especie, binario_entrada);
+            pular += leitura_variavel_02(dado.habitat, binario_entrada);
+            pular += leitura_variavel_02(dado.tipo,    binario_entrada);
+            pular += leitura_variavel_02(dado.dieta,   binario_entrada);
             num_reg++;
 
 

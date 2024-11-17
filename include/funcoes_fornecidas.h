@@ -1,13 +1,12 @@
-// Header para funções gerais
-
 #ifndef FUNCOES_FORNECIDAS_H
 #define FUNCOES_FORNECIDAS_H
 
-#include <stdlib.h>
-#include <stdio.h>
+void binarioNaTela(char *);
+void scan_quote_string(char *);
+long converteNome (char*);
+
 
 typedef struct {
-
     char removido;
     int encadeamento;
     int populacao;
@@ -20,11 +19,9 @@ typedef struct {
     char tipo[50];
     char dieta[50];
     char alimento[50];
-
 } DADO;
 
 typedef struct {
-
     char status;
     int topo;
     int proxRRN;
@@ -32,9 +29,5 @@ typedef struct {
     int nroPagDisco;
     int qttCompacta;
 } CABECALHO;
-
-void binarioNaTela(char *);
-void scan_quote_string(char *);
-int sobreescreve_dado (FILE* , DADO);
 
 #endif
