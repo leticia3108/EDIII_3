@@ -1,9 +1,9 @@
-CC = gcc
+CC = g++
 # CFLAGS = -g -Wall -O0 -std=c99
-CFLAGS = -g -O0 -std=c99 # Flag -Wall removida para funcionar no runcodes
+CFLAGS = -g++ -O0 -std=c++11 # Flag -Wall removida para funcionar no runcodes
 INCLUDE = $(wildcard include/*.h)
 SOURCES = $(wildcard src/*.c)
-OBJ = $(SOURCES:$(SRC_DIR)/%.c = $(BUILD_DIR)/%.o)
+OBJ = $(SOURCES:$(SRC_DIR)/%.cpp = $(BUILD_DIR)/%.o)
 # INCLUDE_OBJ = $(INCLUDE:src/%.c=src/%.o)
 TARGET = $(BIN_DIR)/executavel
 
@@ -20,7 +20,7 @@ $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
 # Compilar arquivos .c em arquivos .o
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(INC_DIR)/%.h $(INC_DIR)/main.h $(INC_DIR)/funcoes_fornecidas.h
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp $(INC_DIR)/%.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(OBJ) $(BUILD_DIR) $(BIN_DIR)
