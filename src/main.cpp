@@ -29,35 +29,40 @@
  
 */
 
-
-#include <stdlib.h>
-#include <stdio.h>
 #include <stddef.h>
-#include <string.h>
+#include <cstring>
 
-#include "../include/main.h"
-#include "../include/funcoes_fornecidas.h"
+//#include "../include/main.h"
+//#include "../include/funcoes_fornecidas.h"
 #include "../include/common.h"
-#include "../include/ex2.h"
-#include "../include/ex5.h"
-#include "../include/ex7.h"
-#include "../include/ex8.h"
-#include "../include/ex9.h"
+#include "../include/ex10.h"
 
 
 int main() {
 
-    int* proxRRN = malloc(sizeof(int));
-    *proxRRN = 0; 
+ //   int* proxRRN = malloc(sizeof(int));
+ //   *proxRRN = 0; 
 
     // Leitura da entrada inicial do usuário
     int opcao = 0;
     scanf("%d", &opcao);
     getc(stdin);
 
+
+    // Ler o nome do arquivo de entrada, com tamanho máximo 30:
+    char nome_entrada[T_MAX];
+    fgets(nome_entrada, T_MAX, stdin);
+    nome_entrada[strlen(nome_entrada) - 1] = '\0';
+
+    // Abertura do binário de entrada para leitura
+    FILE *binario_entrada = fopen(nome_entrada,"rb");
+    if (binario_entrada == NULL){
+        printf("Erro ao abrir o arquivo de entrada");
+    }
+
     switch (opcao) {
 
-        case 7:
+/*      case 7:
             ex7(proxRRN);
             break;
 
@@ -68,9 +73,9 @@ int main() {
         case 9:
             ex9(proxRRN);
             break;
-
+*/
         case 10:
-            ex10();
+            ex10(binario_entrada);
             break;
 
         default:
