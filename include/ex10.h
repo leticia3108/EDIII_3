@@ -3,5 +3,6 @@
 
 void ex10(FILE* binario_entrada);
 int leitura_variavel(char* str, FILE* binario_entrada);
+long converteNome(char* str);
 
 #endif

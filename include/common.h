@@ -15,13 +15,19 @@
 
 using namespace std;
 
+// Definições
+#define T_REG_DADOS 160
+#define TAM_DISCO 1600
+#define TAM_DADOS_FIXOS 18
+#define T_MAX 50
+
 typedef struct {
     int populacao;
     string alimento;
 } noListaAdj;
 
 typedef struct {
-    string nome;
+    char nome[T_MAX];
     string especie;
     string habitat;
     string tipo;
@@ -29,10 +35,5 @@ typedef struct {
     list <noListaAdj> lista;
 } SVertice;
 
-// Definições
-#define T_REG_DADOS 160
-#define TAM_DISCO 1600
-#define TAM_DADOS_FIXOS 18
-#define T_MAX 50
 
 #endif
