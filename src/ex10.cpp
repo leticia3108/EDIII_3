@@ -43,17 +43,22 @@ void Grafo::JuntaElementos(){
     std::vector<SVertice>::iterator i;
     std::vector<SVertice>::iterator j;
     int cnt;
+    bool saiu = false;
     for (i = _v.begin(); i != _v.end(); i++){
-        cnt = 0;
+        cnt = 1;
         for (j = i+1; j != _v.end(); j++){
             if (converteNome(i->nome) == converteNome(j->nome)){
-                cout << i->nome << endl;
+                //cout << i->nome << endl;
                 i->lista.push_back(j->lista.back());
                 cnt++;
                 i->grauSaida = cnt;
+                saiu = true;
               //  cout << "grau de saida:" << i->grauSaida << endl;
             } else {
-                i += cnt;
+                i->grauSaida = cnt;
+                if (saiu)
+                    i += cnt-1;
+                saiu = false;
                 break;}
             
             i->lista.sort(ComparadorLista);
@@ -66,12 +71,12 @@ void Grafo::ImprimeGrafo(){
 
     for (int i = 0; i < _v.size(); i++){
         for (noListaAdj no : _v[i].lista){
-            cout << _v[i].nome << ", " <<_v[i].especie <<", "<<
-            _v[i].habitat << ", " << _v[i].dieta << ", " << 
-            _v[i].tipo << ", " << _v[i].grauEntrada << ", " << 
-            _v[i].grauSaida << ", " << _v[i].grauEntrada + 
-            _v[i].grauSaida << ", " << no.populacao << ", " <<
-            no.alimento << endl;
+            cout <<" "<< _v[i].nome  <<" "<< _v[i].especie 
+            <<" "<< _v[i].habitat  <<" "<< _v[i].dieta  
+            <<" "<< _v[i].tipo  <<" "<< _v[i].grauEntrada 
+            <<" "<< _v[i].grauSaida  <<" "<< _v[i].grauEntrada + 
+            _v[i].grauSaida  <<" "<< no.alimento <<" "<<
+            no.populacao << endl;
         }
     }
 }
