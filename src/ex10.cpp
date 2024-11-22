@@ -156,13 +156,12 @@ void Grafo::AtualizaDegrauEntrada(){
     std::vector<SVertice>::iterator i;
     std::vector<SVertice>::iterator k;
     std::list<noListaAdj>::iterator j;
-    int nomeVertice;
+    //int nomeVertice;
     for (i = _v.begin(); i != _v.end(); i++){
         i->grauEntrada = 0;
-        nomeVertice = converteNome(i->nome);
         for (k = _v.begin(); k != _v.end(); k++){
             for (j = k->lista.begin(); j != k->lista.end(); j++){
-                if (converteNome(j->alimento) == nomeVertice){
+                  if (strcmp(j->alimento, i->nome) == 0){
                     i->grauEntrada++;
                     break;
                 }

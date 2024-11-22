@@ -76,6 +76,7 @@ int main() {
 */
         case 10:
             ex10(binario_entrada);
+            fclose(binario_entrada);
             break;
 
         default:
