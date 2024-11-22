@@ -41,7 +41,7 @@ typedef struct
 class Grafo;
 
 // Funções
-int leitura_variavel(char *str, FILE *binario_entrada)
+int leitura_variavel(char *str, FILE *binario_entrada);
 
 
-#endif
+#endif // COMMON_HPP

@@ -1,6 +1,6 @@
-#include "common.hpp"
-#include "grafo.hpp"
-#include "funcoes_fornecidas.hpp"
+#include "./include/common.hpp"
+#include "./include/grafo.hpp"
+#include "./include/funcoes_fornecidas.hpp"
 
 #include <iostream>
 #include <stddef.h>
