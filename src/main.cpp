@@ -1,6 +1,6 @@
 /*
 *************************************************
-* Trabalho Prático 02 de Estrutura de Dados III *
+* Trabalho Prático 03 de Estrutura de Dados III *
 *************************************************
 
  Alunos:
@@ -36,6 +36,7 @@
 //#include "../include/funcoes_fornecidas.h"
 #include "../include/common.h"
 #include "../include/ex10.h"
+#include "../include/ex11.h"
 
 
 int main() {
@@ -51,13 +52,16 @@ int main() {
 
     // Ler o nome do arquivo de entrada, com tamanho máximo 30:
     char nome_entrada[T_MAX];
-    fgets(nome_entrada, T_MAX, stdin);
-    nome_entrada[strlen(nome_entrada) - 1] = '\0';
+    /*fgets(nome_entrada, T_MAX, stdin);
+    nome_entrada[strlen(nome_entrada) - 1] = '\0'; */
+    scanf("%s", nome_entrada);
+
+    //printf("Nome (%s)\n", nome_entrada);
 
     // Abertura do binário de entrada para leitura
     FILE *binario_entrada = fopen(nome_entrada,"rb");
     if (binario_entrada == NULL){
-        printf("Erro ao abrir o arquivo de entrada");
+        printf("Falha no processamento do arquivo.");
     }
 
     switch (opcao) {
@@ -76,7 +80,10 @@ int main() {
 */
         case 10:
             ex10(binario_entrada);
-            fclose(binario_entrada);
+            break;
+
+        case 11:
+            ex11(binario_entrada);
             break;
 
         default:
@@ -84,5 +91,6 @@ int main() {
             break;
     }
 
+    fclose(binario_entrada);
     return 0;
 }

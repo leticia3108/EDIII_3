@@ -37,5 +37,24 @@ typedef struct {
     int grauEntrada;
 } SVertice;
 
+bool ComparadorVertice (SVertice s1, SVertice s2);
+bool ComparadorLista (noListaAdj s1, noListaAdj s2);
+bool ComparadorIgualdade (SVertice s1, SVertice s2);
+
+class Grafo {
+
+private:
+    vector<SVertice> _v;
+    FILE* _binario;
+
+public:
+    Grafo(FILE* binario): _binario(binario){}
+    SVertice CriaVertice(int RRN);
+    void CriaGrafo();
+    void JuntaElementos();
+    void AtualizaDegrauEntrada();
+    void ImprimeGrafo();
+    char** BuscaPredadores(int numPresas);
+};
 
 #endif
