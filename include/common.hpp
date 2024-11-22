@@ -2,10 +2,9 @@
     Header de uso comum para as funções do projeto
 */
 
-#include <string>
 
-#ifndef COMMON_H
-#define COMMON_H
+#ifndef COMMON_HPP
+#define COMMON_HPP
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -21,21 +20,28 @@ using namespace std;
 #define TAM_DADOS_FIXOS 18
 #define T_MAX 50
 
-typedef struct {
+typedef struct
+{
     int populacao;
     char alimento[T_MAX];
 } noListaAdj;
 
-typedef struct {
+typedef struct
+{
     char nome[T_MAX];
     string especie;
     string habitat;
     string tipo;
     string dieta;
-    list <noListaAdj> lista;
+    list<noListaAdj> lista;
     int grauSaida;
     int grauEntrada;
 } SVertice;
+
+class Grafo;
+
+// Funções
+int leitura_variavel(char *str, FILE *binario_entrada)
 
 
 #endif

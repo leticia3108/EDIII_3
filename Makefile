@@ -1,11 +1,11 @@
 CC = g++
-# CFLAGS = -g -Wall -O0 -std=c99
-CFLAGS = -g -O0 -std=c++11 # Flag -Wall removida para funcionar no runcodes
-INCLUDE = $(wildcard include/*.h)
+CFLAGS = -g -Wall -O0 -std=c++11
+# CFLAGS = -g -O0 -std=c++11 # Flag -Wall removida para funcionar no runcodes
+INCLUDE = $(wildcard include/*.hpp)
 SOURCES = $(wildcard src/*.cpp)
 OBJ = $(SOURCES:$(SRC_DIR)/%.cpp = $(BUILD_DIR)/%.o)
 # INCLUDE_OBJ = $(INCLUDE:src/%.c=src/%.o)
-TARGET = $(BIN_DIR)/executavel
+TARGET = $(BIN_DIR)/programaTrab
 
 # Diretórios
 SRC_DIR = src
