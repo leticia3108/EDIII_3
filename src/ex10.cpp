@@ -2,9 +2,22 @@
 #include <iostream>
 #include "../include/ex10.h"
 #include <algorithm>
+#include <string.h>
 
-bool Comparador (SVertice s1, SVertice s2){
+/* bool ComparadorVertice (SVertice s1, SVertice s2){
     return converteNome(s1.nome) < converteNome(s2.nome);
+} */
+
+bool ComparadorVertice (SVertice s1, SVertice s2){
+    return (strcmp(s1.nome , s2.nome) < 0);
+}
+
+/* bool ComparadorLista (noListaAdj s1, noListaAdj s2){
+    return converteNome(s1.alimento) < converteNome(s2.alimento);
+} */
+
+bool ComparadorLista (noListaAdj s1, noListaAdj s2){
+    return (strcmp(s1.alimento,s2.alimento) < 0);
 }
 
 bool ComparadorIgualdade (SVertice s1, SVertice s2){
@@ -22,17 +35,43 @@ public:
     SVertice CriaVertice(int RRN);
     void CriaGrafo();
     void JuntaElementos();
-    void AtualizaDegraus();
+    void AtualizaDegrauEntrada();
+    void ImprimeGrafo();
 };
 
 void Grafo::JuntaElementos(){
     std::vector<SVertice>::iterator i;
     std::vector<SVertice>::iterator j;
+    int cnt;
     for (i = _v.begin(); i != _v.end(); i++){
+        cnt = 0;
         for (j = i+1; j != _v.end(); j++){
             if (converteNome(i->nome) == converteNome(j->nome)){
+                cout << i->nome << endl;
                 i->lista.push_back(j->lista.back());
-            } else {break;}
+                cnt++;
+                i->grauSaida = cnt;
+              //  cout << "grau de saida:" << i->grauSaida << endl;
+            } else {
+                i += cnt;
+                break;}
+            
+            i->lista.sort(ComparadorLista);
+
+        }
+    }
+}
+
+void Grafo::ImprimeGrafo(){
+
+    for (int i = 0; i < _v.size(); i++){
+        for (noListaAdj no : _v[i].lista){
+            cout << _v[i].nome << ", " <<_v[i].especie <<", "<<
+            _v[i].habitat << ", " << _v[i].dieta << ", " << 
+            _v[i].tipo << ", " << _v[i].grauEntrada << ", " << 
+            _v[i].grauSaida << ", " << _v[i].grauEntrada + 
+            _v[i].grauSaida << ", " << no.populacao << ", " <<
+            no.alimento << endl;
         }
     }
 }
@@ -53,32 +92,31 @@ mento do registro especificado por RRN (começando em 0)*/
 
     leitura_variavel(vertice.nome, _binario);
    // vertice.nome = temp;
-    cout << "nome: " << vertice.nome << endl;
+    //cout << "nome: " << vertice.nome << endl;
 
     leitura_variavel(temp, _binario);
     vertice.especie = temp;
-    cout << "especie: "<< vertice.especie << endl;
+    //cout << "especie: "<< vertice.especie << endl;
 
     leitura_variavel(temp, _binario);
     vertice.habitat = temp;
-    cout << "habitat: " << vertice.habitat << endl;
+    //cout << "habitat: " << vertice.habitat << endl;
 
     leitura_variavel(temp, _binario);
     vertice.tipo = temp;
-    cout << "tipo: " << vertice.tipo << endl;
+    //cout << "tipo: " << vertice.tipo << endl;
 
     leitura_variavel(temp, _binario);
     vertice.dieta = temp;
-    cout << "dieta: " << vertice.dieta << endl;
+    //cout << "dieta: " << vertice.dieta << endl;
 
-    leitura_variavel(temp, _binario);
-    listaAdj.alimento = temp;
-    cout << "alimento: " << temp <<endl;
+    leitura_variavel(listaAdj.alimento, _binario);
+    //listaAdj.alimento = temp;
+    //cout << "alimento: " << temp <<endl;
 
     vertice.lista.push_front(listaAdj);
     _v.push_back(vertice);
 
-    //fseek(_binario, TAM_DISCO + (RRN+1)*T_REG_DADOS, SEEK_SET); 
     free(temp);
     return vertice;
 }
@@ -99,15 +137,37 @@ while (end = !feof(_binario)){
 
 //cout << "\n" << end << endl;
 
-sort(_v.begin(), _v.end(), Comparador);
+sort(_v.begin(), _v.end(), ComparadorVertice);
 JuntaElementos();
 std::vector<SVertice>::iterator i;
 resize = unique(_v.begin(),_v.end(),ComparadorIgualdade);
 _v.resize(distance(_v.begin(),resize));
+AtualizaDegrauEntrada();
+
+}
+
+
+void Grafo::AtualizaDegrauEntrada(){
+    std::vector<SVertice>::iterator i;
+    std::vector<SVertice>::iterator k;
+    std::list<noListaAdj>::iterator j;
+    int nomeVertice;
+    for (i = _v.begin(); i != _v.end(); i++){
+        i->grauEntrada = 0;
+        nomeVertice = converteNome(i->nome);
+        for (k = _v.begin(); k != _v.end(); k++){
+            for (j = k->lista.begin(); j != k->lista.end(); j++){
+                if (converteNome(j->alimento) == nomeVertice){
+                    i->grauEntrada++;
+                    break;
+                }
+            }
+        }
+    }
 }
 
 void ex10(FILE* binario){
     Grafo g(binario);
     g.CriaGrafo();
-    
+    g.ImprimeGrafo();
 }

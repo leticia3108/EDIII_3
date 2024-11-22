@@ -23,7 +23,7 @@ using namespace std;
 
 typedef struct {
     int populacao;
-    string alimento;
+    char alimento[T_MAX];
 } noListaAdj;
 
 typedef struct {
@@ -33,6 +33,8 @@ typedef struct {
     string tipo;
     string dieta;
     list <noListaAdj> lista;
+    int grauSaida;
+    int grauEntrada;
 } SVertice;
 
 
