@@ -54,7 +54,9 @@ public:
     void JuntaElementos();
     void AtualizaDegrauEntrada();
     void ImprimeGrafo();
-    char** BuscaPredadores(int numPresas);
+    void BuscaPredadores();
 };
+
+void scan_quote_string(char *str);
 
 #endif

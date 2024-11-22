@@ -5,15 +5,6 @@
 void ex11(FILE* binario){
     Grafo g(binario);
     g.CriaGrafo();
-    int numPresas;
+    g.BuscaPredadores();
     
-    cin >> numPresas;
-    //printf("%d", numPresas)
-    char** presas = g.BuscaPredadores(numPresas);
-    
-    for (int i = 0; i < numPresas; i++){
-        free(presas[i]);
-    };
-
-    free(presas);
 }

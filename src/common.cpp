@@ -76,14 +76,22 @@ void Grafo::ImprimeGrafo(){
 
 //ofstream MyFile("saida1.txt");
 
+auto lastIt = std::prev(_v[_v.size()-1].lista.end());
+
     for (int i = 0; i < _v.size(); i++){
-        for (noListaAdj no : _v[i].lista){
-            cout <<" "<< _v[i].nome  <<" "<< _v[i].especie 
+        for (auto it = _v[i].lista.begin(); it != _v[i].lista.end(); ++it) {
+        noListaAdj& no = *it;
+        //for (noListaAdj no : _v[i].lista){
+            cout<< _v[i].nome  <<" "<< _v[i].especie 
             <<" "<< _v[i].habitat  <<" "<< _v[i].dieta  
             <<" "<< _v[i].tipo  <<" "<< _v[i].grauEntrada 
             <<" "<< _v[i].grauSaida  <<" "<< _v[i].grauEntrada + 
             _v[i].grauSaida  <<" "<< no.alimento <<" "<<
-            no.populacao << endl;
+            no.populacao;
+
+            if (it != lastIt) {
+                cout << endl;
+            }
         }
     }
 
@@ -179,16 +187,41 @@ void Grafo::AtualizaDegrauEntrada(){
     }
 }
 
-char** Grafo::BuscaPredadores(int numPresas){
+void Grafo::BuscaPredadores(){
+
+    int numPresas;
+
+    cin >> numPresas;
+    //printf("%d", numPresas)
 
     char** presas = (char**) malloc (numPresas*sizeof(char*));
 
     for (int i = 0; i < numPresas; i++){
         presas[i] = (char*) malloc (T_MAX*sizeof(char));
-        scanf("%s", presas[i]);
+        scan_quote_string(presas[i]);
         //printf("(%s)", presas[i]);
     }
 
-return presas;
+    std::vector<SVertice>::iterator j;
+    std::list<noListaAdj>::iterator k;
+
+    char nomePredador[T_MAX];
+
+    for (j = _v.begin(); j != _v.end(); j++ ){
+        strcpy(nomePredador, j->nome);
+        for (k = j->lista.begin(); k != j->lista.end(); k++){
+            if (strcmp(nomePredador,k->alimento) == 0){
+                cout << nomePredador;
+            }
+        }
+    }
+
+    for (int i = 0; i < numPresas; i++){
+        free(presas[i]);
+    };
+
+    free(presas);
+
+return;
 
 }
