@@ -20,6 +20,10 @@ using namespace std;
 #define TAM_DISCO 1600
 #define TAM_DADOS_FIXOS 18
 #define T_MAX 50
+#define branco 0
+#define cinza  1
+#define preto 2
+#define vermelho 3
 
 typedef struct {
     int populacao;
@@ -35,6 +39,7 @@ typedef struct {
     list <noListaAdj> lista;
     int grauSaida;
     int grauEntrada;
+    int cor;
 } SVertice;
 
 bool ComparadorVertice (SVertice s1, SVertice s2);
@@ -55,6 +60,10 @@ public:
     void AtualizaDegrauEntrada();
     void ImprimeGrafo();
     void BuscaPredadores();
+    void CiclosSimples();
+    void EncontraCiclos(int vInicial, int vAtual, int* cntCiclos, std::list<int>& path);
+    bool FoiVizitado(noListaAdj vizinho);
+    int VerticeVizinho(noListaAdj vizinho);
 };
 
 void scan_quote_string(char *str);

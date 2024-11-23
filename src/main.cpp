@@ -37,6 +37,7 @@
 #include "../include/common.h"
 #include "../include/ex10.h"
 #include "../include/ex11.h"
+#include "../include/ex12.h"
 
 
 int main() {
@@ -84,6 +85,10 @@ int main() {
 
         case 11:
             ex11(binario_entrada);
+            break;
+    
+        case 12:
+            ex12(binario_entrada);
             break;
 
         default:

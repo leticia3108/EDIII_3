@@ -136,6 +136,8 @@ mento do registro especificado por RRN (começando em 0)*/
     //listaAdj.alimento = temp;
     //cout << "alimento: " << temp <<endl;
 
+    vertice.cor = branco;
+
     vertice.lista.push_front(listaAdj);
     _v.push_back(vertice);
 
@@ -224,4 +226,109 @@ void Grafo::BuscaPredadores(){
 
 return;
 
+}
+
+/* void Grafo::CiclosSimples(){
+
+int vInicial = 0;
+int vAtual = vInicial;
+int cntCiclos = 0;
+list<int> path;
+
+std::list<noListaAdj>::iterator vIter[_v.size][2];
+std::list<noListaAdj>::iterator iter;
+
+while (_v[vAtual].lista.empty()){
+    vInicial++;
+}
+
+char* nomeInicial = (char*)_v[vInicial].nome;
+vAtual = vInicial;
+
+path.push_back(vAtual);
+
+//
+iter = _v[vAtual].lista.begin();
+vIter[vAtual][0] = iter;
+vIter[vAtual][1] = _v[vAtual].lista.end();
+
+
+if(strcmp(vIter[vAtual]->alimento, nomeInicial) == 0){
+    cntCiclos++;
+    if ((vIter[vAtual][0] + 1) != vIter[vAtual][1]){
+        vIter[vAtual][0]++;
+    } else {
+        while ((vIter[vAtual][0] + 1) == vIter[vAtual][1]){
+        path.pop_back();
+        vAtual = path.push_back;}
+    }
+} 
+} */
+
+void Grafo::CiclosSimples(){
+    
+    int cntCiclos = 0;
+    std::list<int> path;
+
+    for (int vInicial = 0; vInicial < _v.size(); ++vInicial) {
+        if (!_v[vInicial].lista.empty()) {
+            EncontraCiclos(vInicial, vInicial, &cntCiclos, path);
+        }
+    }
+
+    cout << "Quantidade de ciclos: " <<cntCiclos;
+
+}
+
+void Grafo::EncontraCiclos(int vInicial, int vAtual, int* cntCiclos, std::list<int>& path){
+
+    path.push_back(vAtual);
+    _v[vAtual].cor = cinza;
+    char* nomeInicial = (char*) _v[vInicial].nome;
+
+    for (noListaAdj vizinho : _v[vAtual].lista){
+        if (!FoiVizitado(vizinho)){
+            EncontraCiclos(vInicial, VerticeVizinho(vizinho), cntCiclos, path);
+        } else if (strcmp(vizinho.alimento, nomeInicial) == 0){
+            (*cntCiclos)++;
+           /* cout << vizinho.alimento << " " << nomeInicial << ":";
+                for (int node : path) {
+                    std::cout << node << " (" << _v[node].nome << ") ";
+                }
+                std::cout << vInicial << " (" << _v[vInicial].nome << ") " << std::endl;*/
+        } 
+    }
+
+    _v[vAtual].cor = branco;
+    if (vAtual == vInicial){
+        _v[vAtual].cor = vermelho;
+    }
+    path.pop_back();
+}
+
+bool Grafo:: FoiVizitado(noListaAdj vizinho){
+
+    for(int i = 0; i < _v.size(); i++){
+        if (strcmp(_v[i].nome, vizinho.alimento) == 0){
+            if(_v[i].cor == cinza || _v[i].cor == vermelho){
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+int Grafo:: VerticeVizinho(noListaAdj vizinho){
+
+    for(int i = 0; i < _v.size(); i++){
+        if (strcmp(_v[i].nome, vizinho.alimento) == 0){
+            return i;
+        }
+    }
+
+    printf("O vizinho não tem vértice\n");
+    return -1;
 }
