@@ -1,3 +1,30 @@
+/*
+    *************************************************
+    * Trabalho Prático 03 de Estrutura de Dados III *
+    *************************************************
+
+ Alunos:
+    Paulo Nunes de Azevedo    - Nº USP: 13839010
+    Leticia Crepaldi da Cunha - Nº USP: 11800879
+
+
+ ********* Desenvolvimento de cada integrante no projeto: *********
+
+ -------------------------------------------------------------------------
+ Leticia:
+
+
+ Porcentagem de participação da sua parte:
+ -------------------------------------------------------------------------
+
+ -------------------------------------------------------------------------
+ Paulo:
+
+
+ Porcentagem de participação da sua parte:
+ -------------------------------------------------------------------------
+
+*/
 
 #include <iostream>
 #include <stddef.h>
