@@ -11,17 +11,16 @@
  ********* Desenvolvimento de cada integrante no projeto: *********
 
  -------------------------------------------------------------------------
- Leticia:
+ Leticia: Realizou as implementações das funcionalidades 10, 12 e 14
 
 
- Porcentagem de participação da sua parte:
+ Porcentagem de participação da sua parte: 90%
  -------------------------------------------------------------------------
 
  -------------------------------------------------------------------------
- Paulo:
+ Paulo: Realizou as implementações das funcionalidades 11 e 13
 
-
- Porcentagem de participação da sua parte:
+ Porcentagem de participação da sua parte: 80%
  -------------------------------------------------------------------------
 
 */
