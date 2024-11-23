@@ -37,10 +37,10 @@
 #include "../include/grafo.hpp"
 #include "../include/ex10.hpp"
 #include "../include/ex11.hpp"
+#include "../include/ex13.hpp"
 
 int main()
 {
-
     int opcao = 0;
     char nome_entrada[T_MAX];
 
@@ -78,6 +78,11 @@ int main()
             free(nomePresa);
         }
         fclose(binario_entrada);
+        break;
+
+    case 13:
+        std::cout << "[DEBUG] Executando a funcionalidade 13..." << std::endl;
+        ex13(grafo);
         break;
 
     default:
