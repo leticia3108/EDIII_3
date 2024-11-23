@@ -31,9 +31,6 @@
 #include "../include/grafo.hpp"
 #include "../include/ex10.hpp"
 #include "../include/ex11.hpp"
-#include "../include/ex12.hpp"
-#include "../include/ex13.hpp"
-#include "../include/ex14.hpp"
 
 #include <iostream>
 #include <cstddef>
@@ -43,14 +40,10 @@
 
 int main()
 {
-
-    //   int* proxRRN = malloc(sizeof(int));
-    //   *proxRRN = 0;
-
-    // Leitura da entrada inicial do usuário
     int opcao = 0;
     char nome_entrada[T_MAX];
 
+    // Leitura da entrada inicial do usuário
     scanf("%d", &opcao);
     scanf("%s", nome_entrada);
 
@@ -59,38 +52,30 @@ int main()
     if (binario_entrada == NULL)
     {
         printf("Erro ao abrir o arquivo de entrada");
+        return 1;
     }
+
+    // Criar o grafo uma única vez para reutilizar nas consultas
+    Grafo grafo(binario_entrada);
+    grafo.CriaGrafo();
 
     switch (opcao)
     {
-
-        // case 7:
-        //     ex7(proxRRN);
-        //     break;
-
-        // case 8:
-        //     ex8();
-        //     break;
-
-        // case 9:
-        //     ex9(proxRRN);
-        //     break;
-
     case 10:
         ex10(binario_entrada);
         fclose(binario_entrada);
         break;
 
     case 11:
-        int numPesas;
-        scanf("%d", &numPesas);
-        for (int i = 0; i < numPesas; i++)
+        int numPresas;
+        scanf("%d", &numPresas);
+        for (int i = 0; i < numPresas; i++)
         {
             char nomePresa[T_MAX];
             char string_aux[T_MAX];
             scanf("%s", string_aux);
             scan_quote_string(nomePresa);
-            ex11(binario_entrada, nomePresa);
+            ex11(grafo, nomePresa);
         }
         fclose(binario_entrada);
         break;
