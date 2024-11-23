@@ -85,18 +85,15 @@ void dfsComponente(const std::vector<SVertice> &vertices, int v, std::vector<boo
 }
 
 // Função principal da funcionalidade 13
-void ex13(const Grafo &grafo)
-{
+void ex13(const Grafo &grafo) {
     const auto &vertices = grafo.getVertices();
     int n = vertices.size();
 
     // Passo 1: Realizar DFS no grafo original
     std::vector<bool> visitados(n, false);
     std::stack<int> ordem;
-    for (int i = 0; i < n; i++)
-    {
-        if (!visitados[i])
-        {
+    for (int i = 0; i < n; i++) {
+        if (!visitados[i]) {
             dfs(vertices, i, visitados, ordem);
         }
     }
@@ -108,27 +105,20 @@ void ex13(const Grafo &grafo)
     std::fill(visitados.begin(), visitados.end(), false);
     int componentesFortementeConexos = 0;
 
-    while (!ordem.empty())
-    {
+    while (!ordem.empty()) {
         int v = ordem.top();
         ordem.pop();
-        if (!visitados[v])
-        {
+        if (!visitados[v]) {
             dfsComponente(transposto, v, visitados);
             componentesFortementeConexos++;
         }
     }
 
     // Verificar se o grafo é fortemente conexo
-    if (componentesFortementeConexos == 1)
-    {
-        std::cout << "O grafo é fortemente conexo." << std::endl;
+    if (componentesFortementeConexos == 1) {
+        std::cout << "Sim, o grafo é fortemente conexo." << std::endl;
+    } else {
+        std::cout << "Não, o grafo não é fortemente conexo e possui "
+                  << componentesFortementeConexos << " componentes." << std::endl;
     }
-    else
-    {
-        std::cout << "O grafo não é fortemente conexo." << std::endl;
-    }
-
-    // Exibir o número de componentes fortemente conexos
-    std::cout << "Número de componentes fortemente conexos: " << componentesFortementeConexos << std::endl;
 }
