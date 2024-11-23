@@ -82,12 +82,17 @@ int main()
         break;
 
     case 11:
-        char nomePresa[T_MAX];
-
-        // Lê nome da presa
-        scanf("%s", nomePresa);
-
-        ex11(binario_entrada, nomePresa);
+        int numPesas;
+        scanf("%d", &numPesas);
+        for (int i = 0; i < numPesas; i++)
+        {
+            char nomePresa[T_MAX];
+            char string_aux[T_MAX];
+            scanf("%s", string_aux);
+            scan_quote_string(nomePresa);
+            ex11(binario_entrada, nomePresa);
+        }
+        fclose(binario_entrada);
         break;
 
     default:
