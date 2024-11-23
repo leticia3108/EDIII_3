@@ -76,12 +76,12 @@ void Grafo::ImprimeGrafo(){
 
 //ofstream MyFile("saida1.txt");
 
-auto lastIt = std::prev(_v[_v.size()-1].lista.end());
+auto lastIt = std::prev(_v[_v.size()-1].lista.end()); //
 
     for (int i = 0; i < _v.size(); i++){
         for (auto it = _v[i].lista.begin(); it != _v[i].lista.end(); ++it) {
         noListaAdj& no = *it;
-        //for (noListaAdj no : _v[i].lista){
+            if(strcmp(no.alimento, "\0") != 0){
             cout<< _v[i].nome  <<" "<< _v[i].especie 
             <<" "<< _v[i].habitat  <<" "<< _v[i].dieta  
             <<" "<< _v[i].tipo  <<" "<< _v[i].grauEntrada 
@@ -91,7 +91,7 @@ auto lastIt = std::prev(_v[_v.size()-1].lista.end());
 
             if (it != lastIt) {
                 cout << endl;
-            }
+            }}
         }
     }
 
@@ -178,7 +178,7 @@ void Grafo::AtualizaDegrauEntrada(){
         i->grauEntrada = 0;
         for (k = _v.begin(); k != _v.end(); k++){
             for (j = k->lista.begin(); j != k->lista.end(); j++){
-                  if (strcmp(j->alimento, i->nome) == 0){
+                  if (strcmp(j->alimento, i->nome) == 0 && strcmp(j->alimento,"\0") != 0){
                     i->grauEntrada++;
                     break;
                 }
