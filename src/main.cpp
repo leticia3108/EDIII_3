@@ -26,7 +26,6 @@
 
 */
 
-
 #include "../include/funcoes_fornecidas.hpp"
 #include "../include/common.hpp"
 #include "../include/grafo.hpp"
@@ -37,7 +36,7 @@
 #include "../include/ex14.hpp"
 
 #include <iostream>
-#include <stddef.h>
+#include <cstddef>
 #include <cstring>
 #include <vector>
 #include <string>
@@ -50,13 +49,10 @@ int main()
 
     // Leitura da entrada inicial do usuário
     int opcao = 0;
-    scanf("%d", &opcao);
-    getc(stdin);
-
-    // Ler o nome do arquivo de entrada, com tamanho máximo 30:
     char nome_entrada[T_MAX];
-    fgets(nome_entrada, T_MAX, stdin);
-    nome_entrada[strlen(nome_entrada) - 1] = '\0';
+
+    scanf("%d", &opcao);
+    scanf("%s", nome_entrada);
 
     // Abertura do binário de entrada para leitura
     FILE *binario_entrada = fopen(nome_entrada, "rb");
@@ -84,20 +80,17 @@ int main()
         ex10(binario_entrada);
         fclose(binario_entrada);
         break;
-case 11: {
-    char nomeArquivo[T_MAX], nomePresa[T_MAX];
 
-    // Nome do arquivo binário
-    std::cout << "Digite o nome do arquivo binário: ";
-    std::cin.getline(nomeArquivo, T_MAX);
+    case 11:
+        char nomePresa[T_MAX];
 
-    // Nome da presa
-    std::cout << "Digite o nome da presa: ";
-    std::cin.getline(nomePresa, T_MAX);
-    
-    ex11(nomeArquivo, nomePresa);
-    break;
-}    default:
+        // Lê nome da presa
+        scanf("%s", nomePresa);
+
+        ex11(binario_entrada, nomePresa);
+        break;
+
+    default:
         std::cout << "\n***************"
                   << "\nOpcao invalida!"
                   << "\n***************" << std::endl;

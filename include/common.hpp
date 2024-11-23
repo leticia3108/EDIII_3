@@ -38,7 +38,6 @@ typedef struct
     int grauEntrada;
 } SVertice;
 
-class Grafo;
 
 // Funções
 int leitura_variavel(char *str, FILE *binario_entrada);

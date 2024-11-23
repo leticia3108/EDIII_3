@@ -1,3 +1,4 @@
+#include "../include/funcoes_fornecidas.hpp"
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -112,7 +113,7 @@ long converteNome(char* str) {
 
     /* Faz a conversão char por char para chegar ao resultado */
     long result = 0;
-    for(int i = 0; i < strlen(str); i++) {
+    for(size_t i = 0; i < strlen(str); i++) {
         int cur_digit;
         /* Checa pelas letras minúsculas e as converte para números */
         if(str[i] >= 'a' && str[i] <= 'z')

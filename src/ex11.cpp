@@ -1,43 +1,45 @@
+#include "../include/funcoes_fornecidas.hpp"
 #include "../include/common.hpp"
 #include "../include/grafo.hpp"
 #include "../include/ex11.hpp"
+
 #include <iostream>
 #include <vector>
-#include <string>
-#include <list>
 #include <cstring>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stddef.h>
+#include <algorithm>
+#include <list>
 
-void ex11(const char *nomeArquivo, const char *nomePresa)
+
+void ex11(FILE *binario, const char *nomePresa)
 {
-    // Abrir o arquivo binário
-    FILE *binario = fopen(nomeArquivo, "rb");
-    if (binario == NULL)
-    {
-        std::cerr << "Erro ao abrir o arquivo binário." << std::endl;
-        return;
-    }
-
-    // Gerar o grafo
+    // Criar e gerar o grafo
     Grafo g(binario);
     g.CriaGrafo();
     fclose(binario);
 
-    // Buscar predadores da presa
+    // Obter os vértices do grafo
     const auto &vertices = g.getVertices();
+
+    // Lista para armazenar os predadores
     std::vector<std::string> predadores;
 
+    // Iterar pelos vértices e buscar arestas que apontam para a presa
     for (const auto &vertice : vertices)
     {
         for (const auto &adj : vertice.lista)
         {
             if (strcmp(adj.alimento, nomePresa) == 0)
             {
-                predadores.push_back(vertice.nome);
+                predadores.push_back(vertice.nome); // Adicionar o predador
             }
         }
     }
 
-    // Exibir os predadores
+    // Exibir os resultados
     if (predadores.empty())
     {
         std::cout << "Nenhum predador encontrado para a presa: " << nomePresa << std::endl;

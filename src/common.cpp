@@ -1,3 +1,4 @@
+#include "../include/funcoes_fornecidas.hpp"
 #include "../include/common.hpp"
 #include <stdio.h>
 #include <stdlib.h>

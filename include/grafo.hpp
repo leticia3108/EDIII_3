@@ -1,20 +1,36 @@
 #ifndef GRAFO_HPP
 #define GRAFO_HPP
 
-class Grafo
-{
+#include <vector>
+#include <list>
+#include <string>
+#include <cstdio> // Para FILE*
+#include "common.hpp" // Presume que contém SVertice e noListaAdj
+
+// Classe para representar o grafo
+class Grafo {
 private:
-    vector<SVertice> _v;
-    FILE *_binario;
+    std::vector<SVertice> _v; // Lista de vértices
+    FILE *_binario;           // Ponteiro para o arquivo binário
 
 public:
-    Grafo(FILE *binario) : _binario(binario) {}
-    SVertice CriaVertice(int RRN);
-    void CriaGrafo();
-    void JuntaElementos();
-    void AtualizaDegrauEntrada();
-    void ImprimeGrafo();
-    const std::vector<SVertice> &getVertices() const { return _v; }
+    // Construtor
+    Grafo(FILE *binario);
+
+    // Funções principais
+    SVertice CriaVertice(int RRN);       // Cria um vértice a partir de um registro
+    void CriaGrafo();                   // Gera o grafo a partir do binário
+    void JuntaElementos();              // Junta vértices com nomes iguais
+    void AtualizaDegrauEntrada();       // Atualiza o grau de entrada de cada vértice
+    void ImprimeGrafo() const;          // Imprime os dados do grafo
+
+    // Getter para os vértices
+    const std::vector<SVertice>& getVertices() const;
 };
+
+// Funções auxiliares para ordenação e comparação
+bool ComparadorVertice(const SVertice &s1, const SVertice &s2);
+bool ComparadorLista(const noListaAdj &s1, const noListaAdj &s2);
+bool ComparadorIgualdade(const SVertice &s1, const SVertice &s2);
 
 #endif // GRAFO_HPP

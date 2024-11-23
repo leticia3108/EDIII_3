@@ -1,199 +1,125 @@
-#include "./include/common.hpp"
-#include "./include/grafo.hpp"
-#include "./include/funcoes_fornecidas.hpp"
-
-#include <iostream>
-#include <stddef.h>
-#include <cstring>
-#include <vector>
-#include <string>
-#include <list>
+#include "../include/grafo.hpp"
 #include <algorithm>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstring>
+#include <iostream>
+#include <cstdio>
+#include <cstdlib>
 
-// bool ComparadorVertice(SVertice s1, SVertice s2)
-// {
-//     return converteNome(s1.nome) < converteNome(s2.nome);
-// }
-
-bool ComparadorVertice(SVertice s1, SVertice s2)
-{
+// Comparador para ordenar vértices por nome
+bool ComparadorVertice(const SVertice &s1, const SVertice &s2) {
     return (strcmp(s1.nome, s2.nome) < 0);
 }
 
-// bool ComparadorLista(noListaAdj s1, noListaAdj s2)
-// {
-//     return converteNome(s1.alimento) < converteNome(s2.alimento);
-// }
-
-bool ComparadorLista(noListaAdj s1, noListaAdj s2)
-{
+// Comparador para ordenar a lista de adjacências por nome do alimento
+bool ComparadorLista(const noListaAdj &s1, const noListaAdj &s2) {
     return (strcmp(s1.alimento, s2.alimento) < 0);
 }
 
-bool ComparadorIgualdade(SVertice s1, SVertice s2)
-{
-    return converteNome(s1.nome) == converteNome(s2.nome);
+// Comparador para verificar igualdade entre vértices
+bool ComparadorIgualdade(const SVertice &s1, const SVertice &s2) {
+    return (strcmp(s1.nome, s2.nome) == 0);
 }
 
-class Grafo
-{
+// Construtor da classe Grafo
+Grafo::Grafo(FILE *binario) : _binario(binario) {}
 
-private:
-    vector<SVertice> _v; // Lista de vértices
-    FILE *_binario;      // Arquivo binário de entrada
-
-public:
-    Grafo(FILE *binario) : _binario(binario) {}
-    SVertice CriaVertice(int RRN);
-    void CriaGrafo();
-    void JuntaElementos();
-    void AtualizaDegrauEntrada();
-    void ImprimeGrafo();
-    const std::vector<SVertice> &getVertices() const { return _v; }
-};
-
-void Grafo::JuntaElementos()
-{
-    std::vector<SVertice>::iterator i;
-    std::vector<SVertice>::iterator j;
-    int cnt;
-    bool saiu = false;
-    for (i = _v.begin(); i != _v.end(); i++)
-    {
-        cnt = 1;
-        for (j = i + 1; j != _v.end(); j++)
-        {
-            if (converteNome(i->nome) == converteNome(j->nome))
-            {
-                // cout << i->nome << endl;
-                i->lista.push_back(j->lista.back());
-                cnt++;
-                i->grauSaida = cnt;
-                saiu = true;
-                //  cout << "grau de saida:" << i->grauSaida << endl;
-            }
-            else
-            {
-                i->grauSaida = cnt;
-                if (saiu)
-                    i += cnt - 1;
-                saiu = false;
-                break;
-            }
-
-            i->lista.sort(ComparadorLista);
-        }
-    }
-}
-
-void Grafo::ImprimeGrafo()
-{
-    for (int i = 0; i < _v.size(); i++)
-    {
-        for (noListaAdj no : _v[i].lista)
-        {
-            cout << " " << _v[i].nome << " " << _v[i].especie
-                 << " " << _v[i].habitat << " " << _v[i].dieta
-                 << " " << _v[i].tipo << " " << _v[i].grauEntrada
-                 << " " << _v[i].grauSaida << " " << _v[i].grauEntrada + _v[i].grauSaida << " " << no.alimento << " " << no.populacao << endl;
-        }
-    }
-}
-
-SVertice Grafo::CriaVertice(int RRN)
-{
-    /* Esta função cria um novo vértice a partir de um único
-    registro do binário de entrada, conectando apenas o ali-
-    mento do registro especificado por RRN (começando em 0)*/
-
+// Cria um vértice a partir de um registro no binário
+SVertice Grafo::CriaVertice(int RRN) {
     SVertice vertice;
-    char *temp = (char *)malloc(50 * sizeof(char));
+    char temp[50];
     noListaAdj listaAdj;
 
+    // Ler a população da aresta
     fseek(_binario, TAM_DISCO + 5 + RRN * T_REG_DADOS, SEEK_SET);
-    fread(&(listaAdj.populacao), 1, sizeof(int), _binario);
+    fread(&listaAdj.populacao, sizeof(int), 1, _binario);
 
+    // Ler os dados variáveis
     fseek(_binario, TAM_DISCO + TAM_DADOS_FIXOS + RRN * T_REG_DADOS, SEEK_SET);
-
     leitura_variavel(vertice.nome, _binario);
-    // vertice.nome = temp;
-    // cout << "nome: " << vertice.nome << endl;
-
     leitura_variavel(temp, _binario);
     vertice.especie = temp;
-    // cout << "especie: "<< vertice.especie << endl;
-
     leitura_variavel(temp, _binario);
     vertice.habitat = temp;
-    // cout << "habitat: " << vertice.habitat << endl;
-
     leitura_variavel(temp, _binario);
     vertice.tipo = temp;
-    // cout << "tipo: " << vertice.tipo << endl;
-
     leitura_variavel(temp, _binario);
     vertice.dieta = temp;
-    // cout << "dieta: " << vertice.dieta << endl;
-
     leitura_variavel(listaAdj.alimento, _binario);
-    // listaAdj.alimento = temp;
-    // cout << "alimento: " << temp <<endl;
 
+    // Adicionar a aresta ao vértice
     vertice.lista.push_front(listaAdj);
+
+    // Adicionar o vértice à lista de vértices do grafo
     _v.push_back(vertice);
 
-    free(temp);
     return vertice;
 }
 
-void Grafo::CriaGrafo()
-{
+// Cria o grafo lendo todos os registros do binário
+void Grafo::CriaGrafo() {
+    int RRN = 0;
 
-    std::vector<SVertice>::iterator resize;
-    int end = -1;
-    int cnt = 0;
-
-    while (end = !feof(_binario))
-    {
-        CriaVertice(cnt);
-        // cout << "i = " << i;
-        cnt++;
-        fseek(_binario, TAM_DISCO + cnt * T_REG_DADOS, SEEK_SET);
-        fgetc(_binario);
+    while (!feof(_binario)) {
+        CriaVertice(RRN);
+        RRN++;
+        fseek(_binario, TAM_DISCO + RRN * T_REG_DADOS, SEEK_SET);
+        if (fgetc(_binario) == EOF) break;
     }
 
-    // cout << "\n" << end << endl;
-
-    sort(_v.begin(), _v.end(), ComparadorVertice);
+    // Ordenar os vértices e juntar elementos com nomes iguais
+    std::sort(_v.begin(), _v.end(), ComparadorVertice);
     JuntaElementos();
-    std::vector<SVertice>::iterator i;
-    resize = unique(_v.begin(), _v.end(), ComparadorIgualdade);
-    _v.resize(distance(_v.begin(), resize));
+
+    // Remover duplicatas
+    auto resize = std::unique(_v.begin(), _v.end(), ComparadorIgualdade);
+    _v.resize(std::distance(_v.begin(), resize));
+
+    // Atualizar grau de entrada
     AtualizaDegrauEntrada();
 }
 
-void Grafo::AtualizaDegrauEntrada()
-{
-    std::vector<SVertice>::iterator i;
-    std::vector<SVertice>::iterator k;
-    std::list<noListaAdj>::iterator j;
-    // int nomeVertice;
-    for (i = _v.begin(); i != _v.end(); i++)
-    {
-        i->grauEntrada = 0;
-        for (k = _v.begin(); k != _v.end(); k++)
-        {
-            for (j = k->lista.begin(); j != k->lista.end(); j++)
-            {
-                if (strcmp(j->alimento, i->nome) == 0)
-                {
-                    i->grauEntrada++;
-                    break;
+// Junta vértices com o mesmo nome
+void Grafo::JuntaElementos() {
+    for (auto i = _v.begin(); i != _v.end(); ++i) {
+        for (auto j = i + 1; j != _v.end(); ++j) {
+            if (ComparadorIgualdade(*i, *j)) {
+                i->lista.insert(i->lista.end(), j->lista.begin(), j->lista.end());
+                i->grauSaida += j->grauSaida;
+            } else {
+                break;
+            }
+        }
+        i->lista.sort(ComparadorLista);
+    }
+}
+
+// Atualiza o grau de entrada de cada vértice
+void Grafo::AtualizaDegrauEntrada() {
+    for (auto &i : _v) {
+        i.grauEntrada = 0;
+        for (const auto &k : _v) {
+            for (const auto &j : k.lista) {
+                if (strcmp(j.alimento, i.nome) == 0) {
+                    i.grauEntrada++;
                 }
             }
         }
     }
+}
+
+// Imprime o grafo no formato esperado
+void Grafo::ImprimeGrafo() const {
+    for (const auto &v : _v) {
+        for (const auto &no : v.lista) {
+            std::cout << v.nome << " " << v.especie << " " << v.habitat << " "
+                      << v.dieta << " " << v.tipo << " " << v.grauEntrada << " "
+                      << v.grauSaida << " " << (v.grauEntrada + v.grauSaida) << " "
+                      << no.alimento << " " << no.populacao << std::endl;
+        }
+    }
+}
+
+// Getter para acessar os vértices
+const std::vector<SVertice>& Grafo::getVertices() const {
+    return _v;
 }
