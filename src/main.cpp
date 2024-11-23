@@ -83,12 +83,14 @@ int main()
     case 13:
         std::cout << "[DEBUG] Executando a funcionalidade 13..." << std::endl;
         ex13(grafo);
+        fclose(binario_entrada);
         break;
 
     default:
         std::cout << "\n***************"
                   << "\nOpcao invalida!"
                   << "\n***************" << std::endl;
+        fclose(binario_entrada);
         break;
     }
 
