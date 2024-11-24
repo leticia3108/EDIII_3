@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/common.hpp"
 #include <iostream>
 #include <fstream>
 #include <algorithm>
 #include <string.h>
+
+#include "../include/common.hpp"
 
 int leitura_variavel(char *str, FILE *binario_entrada)
 {
