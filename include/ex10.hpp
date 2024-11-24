@@ -1,6 +1,6 @@
-#ifndef EX10_HPP
-#define EX10_HPP
+// #ifndef EX10_HPP
+// #define EX10_HPP
 
-void ex10(FILE* binario_entrada);
+// void ex10(FILE* binario_entrada);
 
-#endif // EX10_HPP
+// #endif // EX10_HPP

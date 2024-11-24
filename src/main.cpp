@@ -36,7 +36,9 @@
 // #include "../include/grafo.hpp"
 #include "../include/ex10.hpp"
 #include "../include/ex11.hpp"
+#include "../include/ex12.hpp"
 #include "../include/ex13.hpp"
+#include "../include/ex14.hpp"
 
 int main()
 {
@@ -62,8 +64,9 @@ int main()
     switch (opcao)
     {
     case 10:
-        ex10(binario_entrada);
-        fclose(binario_entrada);
+        // ex10(binario_entrada);
+        // fclose(binario_entrada);
+        grafo.ImprimeGrafo();
         break;
 
     case 11:
@@ -79,8 +82,17 @@ int main()
         fclose(binario_entrada);
         break;
 
+    case 12:
+        grafo.CiclosSimples();
+        break;
+
     case 13:
         ex13(grafo);
+        fclose(binario_entrada);
+        break;
+
+    case 14:
+        ex14(grafo);
         fclose(binario_entrada);
         break;
 

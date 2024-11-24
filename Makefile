@@ -1,6 +1,6 @@
 CC = g++
-CFLAGS = -g -Wall -O0 -std=c++11
-# CFLAGS = -g -O0 -std=c++11 # Flag -Wall removida para funcionar no runcodes
+# CFLAGS = -g -Wall -O0 -std=c++11
+CFLAGS = -g -O0 -std=c++11 # Flag -Wall removida para funcionar no runcodes
 INCLUDE = $(wildcard include/*.hpp)
 SOURCES = $(wildcard src/*.cpp)
 OBJ = $(SOURCES:$(SRC_DIR)/%.cpp = $(BUILD_DIR)/%.o)
@@ -25,6 +25,9 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp $(INC_DIR)/%.hpp
 
 all: $(OBJ) $(BUILD_DIR) $(BIN_DIR)
 	$(CC) $(CFLAGS) $(OBJ) -o $(TARGET)
+
+debug: $(OBJ) $(BUILD_DIR) $(BIN_DIR)
+	$(CC) $(CFLAGS) $(OBJ) -o $(TARGET) -DDEBUG
 
 run: $(TARGET)
 	$(TARGET)
