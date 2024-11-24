@@ -47,5 +47,10 @@ typedef struct {
 // Funções
 int leitura_variavel(char *str, FILE *binario_entrada);
 
+bool ComparadorVertice (SVertice s1, SVertice s2);
+bool ComparadorLista (noListaAdj s1, noListaAdj s2);
+bool ComparadorIgualdade (SVertice s1, SVertice s2);
+
+
 
 #endif // COMMON_HPP
