@@ -137,9 +137,9 @@ mento do registro especificado por RRN (começando em 0)*/
     //listaAdj.alimento = temp;
     //cout << "alimento: " << temp <<endl;
 
-   /* if (strcmp(listaAdj.alimento,"\0") != 0){
+    if (strcmp(listaAdj.alimento,"\0") != 0){
         CriaVerticeAlimento(listaAdj.alimento);
-    }*/
+    }
 
     vertice.cor = branco;
 
@@ -155,7 +155,7 @@ void Grafo::CriaVerticeAlimento( char* nome){
     vertice.cor = vermelho;
     vertice.dieta = "\0";
     vertice.especie = "\0";
-    strcpy(nome, vertice.nome);
+    strcpy(vertice.nome, nome);
     _v.push_back(vertice);
     noListaAdj listaAdj;
     strcpy(listaAdj.alimento, "\0");
