@@ -1,5 +1,5 @@
-#include "../include/common.h"
-#include "../include/ex12.h"
+#include "../include/common.hpp"
+#include "../include/ex12.hpp"
 
 void ex12(FILE* binario){
     Grafo g(binario);

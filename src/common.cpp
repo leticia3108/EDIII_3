@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/common.h"
+#include "../include/common.hpp"
 #include <iostream>
 #include <fstream>
-#include "../include/ex10.h"
+//#include "../include/ex10.hpp"
 #include <algorithm>
 #include <string.h>
 
@@ -54,7 +54,8 @@ void Grafo::JuntaElementos(){
         for (j = i+1; j != _v.end(); j++){
             if (converteNome(i->nome) == converteNome(j->nome)){
                 //cout << i->nome << endl;
-                i->lista.push_back(j->lista.back());
+                if (strcmp(j->lista.back().alimento, "\0") != 0)
+                    i->lista.push_back(j->lista.back());
                 cnt++;
                 i->grauSaida = cnt;
                 saiu = true;
@@ -136,6 +137,10 @@ mento do registro especificado por RRN (começando em 0)*/
     //listaAdj.alimento = temp;
     //cout << "alimento: " << temp <<endl;
 
+   /* if (strcmp(listaAdj.alimento,"\0") != 0){
+        CriaVerticeAlimento(listaAdj.alimento);
+    }*/
+
     vertice.cor = branco;
 
     vertice.lista.push_front(listaAdj);
@@ -143,6 +148,19 @@ mento do registro especificado por RRN (começando em 0)*/
 
     free(temp);
     return vertice;
+}
+
+void Grafo::CriaVerticeAlimento( char* nome){
+    SVertice vertice;
+    vertice.cor = vermelho;
+    vertice.dieta = "\0";
+    vertice.especie = "\0";
+    strcpy(nome, vertice.nome);
+    _v.push_back(vertice);
+    noListaAdj listaAdj;
+    strcpy(listaAdj.alimento, "\0");
+    vertice.lista.push_front(listaAdj);
+
 }
 
 void Grafo::CriaGrafo( ){
@@ -228,43 +246,6 @@ return;
 
 }
 
-/* void Grafo::CiclosSimples(){
-
-int vInicial = 0;
-int vAtual = vInicial;
-int cntCiclos = 0;
-list<int> path;
-
-std::list<noListaAdj>::iterator vIter[_v.size][2];
-std::list<noListaAdj>::iterator iter;
-
-while (_v[vAtual].lista.empty()){
-    vInicial++;
-}
-
-char* nomeInicial = (char*)_v[vInicial].nome;
-vAtual = vInicial;
-
-path.push_back(vAtual);
-
-//
-iter = _v[vAtual].lista.begin();
-vIter[vAtual][0] = iter;
-vIter[vAtual][1] = _v[vAtual].lista.end();
-
-
-if(strcmp(vIter[vAtual]->alimento, nomeInicial) == 0){
-    cntCiclos++;
-    if ((vIter[vAtual][0] + 1) != vIter[vAtual][1]){
-        vIter[vAtual][0]++;
-    } else {
-        while ((vIter[vAtual][0] + 1) == vIter[vAtual][1]){
-        path.pop_back();
-        vAtual = path.push_back;}
-    }
-} 
-} */
-
 void Grafo::CiclosSimples(){
     
     int cntCiclos = 0;
@@ -329,6 +310,107 @@ int Grafo:: VerticeVizinho(noListaAdj vizinho){
         }
     }
 
-    printf("O vizinho não tem vértice\n");
+    //printf("O vizinho não tem vértice\n");
+    return -1;
+}
+
+int Grafo:: BuscaPredadorPresa(char* predador, char* presa){
+
+    int menorCaminho[_v.size()];
+    int phi[_v.size()];
+    int predecessor[_v.size()];
+    int custoMinimo = 0;
+
+    int v = NomeParaVertice(presa);
+    int w = NomeParaVertice(predador);
+
+    if (w == -1 || v == -1){
+       // cout << "Nomes de vértices inválidos" << endl;
+        return -1;
+    }
+
+
+    for (int i = 0; i < _v.size(); i++){
+        menorCaminho[i] = INF;
+        phi[i] = 0;
+        predecessor[i] = -1;
+    }
+
+    int numPredador = w;
+    menorCaminho[w] = 0;
+
+    int r, nr;
+    int pred, suc;
+
+    do {
+
+    for (auto iter = _v[w].lista.begin(); iter != _v[w].lista.end(); ++iter) {
+        r = NomeParaVertice(iter->alimento);
+        if (phi[NomeParaVertice(iter->alimento)] == 0){
+            if (menorCaminho[r] > menorCaminho[w] + iter->populacao){
+                menorCaminho[r] = menorCaminho[w] + iter->populacao;
+                predecessor[r] = w;
+            }
+        }
+    }
+
+    nr = INF;
+   
+    for (int i = 0; i < _v.size(); i++){
+        if (menorCaminho[i] < nr && phi[i] == 0){
+            nr = menorCaminho[i];
+            w = i;
+        }
+    }
+
+    phi[w] = 1;
+
+    pred = predecessor[v];
+    suc = v;
+    
+    if (w == v){
+
+        custoMinimo += Custo(pred,suc);
+        
+        while (pred != numPredador){
+            suc = pred;
+            pred = predecessor[pred];
+            custoMinimo += Custo(pred,suc);
+        }
+
+       // cout << pred <<" " << suc << endl;
+       // custoMinimo += Custo(pred,suc);
+
+        return custoMinimo;
+    }
+
+    }
+
+    while (nr != INF);
+
+    return -1;
+}
+
+int Grafo:: NomeParaVertice( char* nome){
+
+    for(int i = 0; i < _v.size(); i++){
+        if (strcmp(_v[i].nome, nome) == 0){
+            return i;
+        }
+    }
+
+    //cout << "O (" << nome << ") " <<  "não tem vertice" << endl;
+   // printf("O vizinho não tem vértice\n");
+    return -1;
+}
+
+int Grafo:: Custo(int pred, int suc){
+    for (auto no : _v[pred].lista){
+        if(strcmp(no.alimento, _v[suc].nome) == 0){
+            return no.populacao;
+        }
+    }
+
+    printf ("Não encontrado\n");
     return -1;
 }

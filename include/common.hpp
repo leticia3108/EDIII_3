@@ -24,6 +24,7 @@ using namespace std;
 #define cinza  1
 #define preto 2
 #define vermelho 3
+#define INF 1410065407
 
 typedef struct {
     int populacao;
@@ -64,8 +65,13 @@ public:
     void EncontraCiclos(int vInicial, int vAtual, int* cntCiclos, std::list<int>& path);
     bool FoiVizitado(noListaAdj vizinho);
     int VerticeVizinho(noListaAdj vizinho);
+    int BuscaPredadorPresa(char* predador, char* presa);
+    int NomeParaVertice( char* nome);
+    int Custo(int pred, int suc);
+    void CriaVerticeAlimento( char* nome);
 };
 
 void scan_quote_string(char *str);
+long converteNome(char* str);
 
 #endif

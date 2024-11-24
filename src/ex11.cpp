@@ -1,5 +1,5 @@
-#include "../include/common.h"
-#include "../include/ex11.h"
+#include "../include/common.hpp"
+#include "../include/ex11.hpp"
 #include <iostream>
 
 void ex11(FILE* binario){
