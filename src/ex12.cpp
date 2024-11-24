@@ -3,7 +3,10 @@
 #include "../include/grafo.hpp"
 #include "../include/ex12.hpp"
 #include <iostream>
-#include <vector>
-#include <string>
-#include <list>
-#include <cstring>
+
+
+void ex12(FILE* binario){
+    Grafo g(binario);
+    g.CriaGrafo();
+    g.CiclosSimples();
+}
