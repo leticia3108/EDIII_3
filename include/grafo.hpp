@@ -4,7 +4,7 @@
 #include <vector>
 #include <list>
 #include <string>
-#include <cstdio>    
+#include <cstdio>
 #include "common.hpp"
 
 class Grafo
@@ -19,10 +19,11 @@ public:
 
     // Funções principais
     SVertice CriaVertice(int RRN); // Cria um vértice a partir de um registro
-    void CriaGrafo();              // Gera o grafo a partir do binário
-    void JuntaElementos();         // Junta vértices com nomes iguais
-    void AtualizaDegrauEntrada();  // Atualiza o grau de entrada de cada vértice
-    void ImprimeGrafo() const;     // Imprime os dados do grafo
+    void CriaVerticeAlimento(char *);
+    void CriaGrafo();             // Gera o grafo a partir do binário
+    void JuntaElementos();        // Junta vértices com nomes iguais
+    void AtualizaDegrauEntrada(); // Atualiza o grau de entrada de cada vértice
+    void ImprimeGrafo();          // Imprime os dados do grafo
 
     // Getter para os vértices
     const std::vector<SVertice> &getVertices() const;
