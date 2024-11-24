@@ -33,12 +33,10 @@
 
 #include "../include/funcoes_fornecidas.hpp"
 #include "../include/common.hpp"
-#include "../include/grafo.hpp"
+// #include "../include/grafo.hpp"
 #include "../include/ex10.hpp"
 #include "../include/ex11.hpp"
-#include "../include/ex12.hpp"
 #include "../include/ex13.hpp"
-#include "../include/ex14.hpp"
 
 int main()
 {
@@ -47,7 +45,6 @@ int main()
 
     // Leitura da entrada inicial do usuário
     scanf("%d", &opcao);
-    getc(stdin);
     scanf("%s", nome_entrada);
 
     // Abertura do binário de entrada para leitura
@@ -81,18 +78,9 @@ int main()
         }
         fclose(binario_entrada);
         break;
-    case 12:
-        ex12(binario_entrada);
-        fclose(binario_entrada);
-        break;
 
     case 13:
         ex13(grafo);
-        fclose(binario_entrada);
-        break;
-
-    case 14:
-        ex14(binario_entrada);
         fclose(binario_entrada);
         break;
 

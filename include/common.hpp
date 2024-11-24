@@ -45,6 +45,11 @@ typedef struct
     int cor;
 } SVertice;
 
+// Funções
+int leitura_variavel(char *, FILE *);
+
+// Funções relativas ao grafo
+
 bool ComparadorVertice(SVertice s1, SVertice s2);
 bool ComparadorLista(noListaAdj s1, noListaAdj s2);
 bool ComparadorIgualdade(SVertice s1, SVertice s2);

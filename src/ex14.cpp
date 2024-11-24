@@ -1,8 +1,6 @@
-#include "../include/funcoes_fornecidas.hpp"
 #include "../include/common.hpp"
 #include "../include/ex14.hpp"
 #include <iostream>
-
 
 void ex14 (FILE* binario){
     Grafo g(binario);
