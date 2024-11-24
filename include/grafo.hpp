@@ -4,10 +4,9 @@
 #include <vector>
 #include <list>
 #include <string>
-#include <cstdio>     // Para FILE*
-#include "common.hpp" // Presume que contém SVertice e noListaAdj
+#include <cstdio>    
+#include "common.hpp"
 
-// Classe para representar o grafo
 class Grafo
 {
 private:

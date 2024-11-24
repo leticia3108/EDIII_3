@@ -35,7 +35,6 @@ void ex11(const Grafo &grafo, const char *nomePresa)
     }
     else
     {
-        // std::cout << "Predadores da presa " << nomePresa << ":\n";
         std::cout << nomePresa << ": ";
         for (auto i = 0; i < predadores.size(); i++)
         {

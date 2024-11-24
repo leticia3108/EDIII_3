@@ -92,23 +92,18 @@ void ex13(const Grafo &grafo) {
     }
 
     // Exibir a pilha de ordem de término
-    std::stack<int> ordemTemp = ordem; // Copiar a pilha para exibir sem esvaziar
+    std::stack<int> ordemTemp = ordem; 
     while (!ordemTemp.empty()) {
-        // std::cout << vertices[ordemTemp.top()].nome << " ";
         ordemTemp.pop();
     }
-    // std::cout << std::endl;
 
     // Passo 2: Transpor o grafo
     auto transposto = transporGrafo(vertices);
 
     // Exibir o grafo transposto
     for (const auto &vertice : transposto) {
-        // std::cout << vertice.nome << " -> ";
         for (const auto &adj : vertice.lista) {
-            // std::cout << adj.alimento << " ";
         }
-        // std::cout << std::endl;
     }
 
     // Passo 3: Realizar DFS no grafo transposto

@@ -14,7 +14,7 @@
  Leticia: Realizou as implementações das funcionalidades 10, 12 e 14
 
 
- Porcentagem de participação da sua parte: 90%
+ Porcentagem de participação da sua parte: 100%
  -------------------------------------------------------------------------
 
  -------------------------------------------------------------------------
